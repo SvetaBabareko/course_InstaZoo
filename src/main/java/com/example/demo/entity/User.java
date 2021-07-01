@@ -1,12 +1,11 @@
-package com.example.entity;
+package com.example.demo.entity;
 
-import com.example.entity.enums.ERole;
+import com.example.demo.entity.enums.ERole;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.*;
 
 @Data
@@ -28,7 +27,7 @@ public abstract class User extends BaseEntity{
 
     @ElementCollection(targetClass = ERole.class)
     @CollectionTable(name = "user_role",
-    joinColumns = @JoinColumn("user_id"))
+            joinColumns = @JoinColumn(name ="user_id"))
     private Set<ERole> role = new HashSet<>();
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user", orphanRemoval = true)

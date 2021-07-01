@@ -1,9 +1,8 @@
-package com.example.entity;
+package com.example.demo.entity;
 
 import lombok.Data;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
