@@ -1,7 +1,6 @@
-package com.example.demo.service;
+package com.example.demo.security;
 
 import com.example.demo.entity.User;
-import com.example.demo.security.SecurityConstants;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,7 +52,7 @@ public class JWTTokenProvider {
         }
     }
 
-    public Long getUserIdFromToken(String token){
+    public Long getUserIdFromToken(String token) {
         Claims claims = Jwts.parser()
                 .setSigningKey(SecurityConstants.SECRET)
                 .parseClaimsJws(token)
