@@ -59,12 +59,16 @@ public class CommentService {
     public void deleteComment(Long commentId){
         Optional<Comment> comment = commentRepository.findById(commentId);
         comment.ifPresent(commentRepository::delete);
-
     }
 
     private User getUserByPrincipal(Principal principal) {
         String username = principal.getName();
         return userRepository.findUserByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Username not found with username " + username));
+    }
+
+    public void updateComment(Long commentId){
+        Optional<Comment> comment = commentRepository.findById(commentId);
+        comment.ifPresent(commentRepository::save);
     }
 }
