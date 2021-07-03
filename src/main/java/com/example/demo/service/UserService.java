@@ -18,7 +18,7 @@ import java.security.Principal;
 
 @Service
 public class UserService {
-    public static final Logger LOG = LoggerFactory.getLogger(JWTAuthenticationFilter.class);
+    public static final Logger LOG = LoggerFactory.getLogger(UserService.class);
 
     private final UserRepository userRepository;
 
