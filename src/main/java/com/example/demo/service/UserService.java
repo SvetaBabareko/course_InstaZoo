@@ -6,7 +6,6 @@ import com.example.demo.entity.enums.ERole;
 import com.example.demo.exceptions.UserExistException;
 import com.example.demo.payload.request.SignupRequest;
 import com.example.demo.repository.UserRepository;
-import com.example.demo.security.JWTAuthenticationFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
