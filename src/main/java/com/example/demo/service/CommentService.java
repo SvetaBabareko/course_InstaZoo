@@ -14,7 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.security.Principal;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -67,8 +69,13 @@ public class CommentService {
                 .orElseThrow(() -> new UsernameNotFoundException("Username not found with username " + username));
     }
 
-    public void updateComment(Long commentId){
-        Optional<Comment> comment = commentRepository.findById(commentId);
-        comment.ifPresent(commentRepository::save);
+    public Comment updateComment(Long commentId, CommentDTO commentDTO ){
+       // User user = getUserByPrincipal(principal);
+
+        Comment comment = commentRepository.findById(commentId)
+                .orElseThrow(()->new EntityNotFoundException("Comment cannot be found"));;
+
+        comment.setMessage(commentDTO.getMessage());
+        return commentRepository.save(comment);
     }
 }

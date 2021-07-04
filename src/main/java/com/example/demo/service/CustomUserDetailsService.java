@@ -33,10 +33,8 @@ public class CustomUserDetailsService implements UserDetailsService {
         return build(user);
     }
 
-    public User loadUserById(Long userId){
-        User user = userRepository.findUserById(userId)
-                .orElseThrow(() -> new EntityNotFoundException("User by id " + userId + " not found"));
-        return build(user);
+    public User loadUserById(Long id) {
+        return userRepository.findUserById(id).orElse(null);
     }
 
     public static User build(User user) {

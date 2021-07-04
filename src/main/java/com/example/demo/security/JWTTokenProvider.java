@@ -21,10 +21,11 @@ public class JWTTokenProvider {
         Date expiryDate = new Date(now.getTime() + SecurityConstants.EXPIRATION_TIME);
 
         String userId = Long.toString(user.getId());
+
         Map<String, Object> claimsMap = new HashMap<>();
         claimsMap.put("id", userId);
         claimsMap.put("username", user.getEmail());
-        claimsMap.put("firstname", user.getUsername());
+        claimsMap.put("firstname", user.getName());
         claimsMap.put("lastname", user.getLastname());
 
         return Jwts.builder()
@@ -34,6 +35,7 @@ public class JWTTokenProvider {
                 .setExpiration(expiryDate)
                 .signWith(SignatureAlgorithm.HS512, SecurityConstants.SECRET)
                 .compact();
+
     }
 
     public boolean validateToken(String token) {
@@ -42,7 +44,7 @@ public class JWTTokenProvider {
                     .setSigningKey(SecurityConstants.SECRET)
                     .parseClaimsJws(token);
             return true;
-        } catch (SignatureException |
+        }catch (SignatureException |
                 MalformedJwtException |
                 ExpiredJwtException |
                 UnsupportedJwtException |
@@ -59,8 +61,6 @@ public class JWTTokenProvider {
                 .getBody();
         String id = (String) claims.get("id");
         return Long.parseLong(id);
-
     }
-
 
 }

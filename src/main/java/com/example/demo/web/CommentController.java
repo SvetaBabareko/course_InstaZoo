@@ -62,9 +62,16 @@ public class CommentController {
 
 
     @PutMapping("/{id}")
-    public ResponseEntity<MessageResponse> updateComment(@PathVariable String id) {
-        commentService.updateComment(Long.parseLong(id));
-        return new ResponseEntity<>(new MessageResponse("Post was updated"), HttpStatus.OK);
+    public ResponseEntity<Object> updateComment(@PathVariable("id") String id,
+                                                @Valid @RequestBody CommentDTO commentDTO,
+                                                         BindingResult bindingResult) {
+        ResponseEntity<Object> errors = responseErrorValidation.mapValidationService(bindingResult);
+        if (!ObjectUtils.isEmpty(errors)) return errors;
+
+        Comment comment = commentService.updateComment(Long.parseLong(id), commentDTO);
+        CommentDTO updatedComment = commentFacade.commentToCommentDTO(comment);
+
+        return new ResponseEntity<>(updatedComment, HttpStatus.OK);
 
     }
 }
